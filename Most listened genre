@@ -6,5 +6,7 @@ FROM invoice i /* join tables until we reach to genre table */
 JOIN InvoiceLine il ON il.InvoiceId=i.InvoiceId
 JOIN Track t ON il.TrackId=t.TrackId
 JOIN Genre g ON t.GenreId=g.GenreId
-GROUP BY 1 /* There is TV Shows and Series if we want to remove it just insert the next line*/ /* HAVING t.GenreId != 18 and t.GenreId != 19  and t.GenreId != 20  and t.GenreId != 21  and t.GenreId != 22 */
+/* There is TV Shows and Series if we want to remove it just insert the next line*/
+/* HAVING t.GenreId != 18 and t.GenreId != 19  and t.GenreId != 20  and t.GenreId != 21  and t.GenreId != 22 */
+GROUP BY 1
 ORDER BY 2 DESC
