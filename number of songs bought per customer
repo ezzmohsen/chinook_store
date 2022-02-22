@@ -1,0 +1,11 @@
+SELECT C.customerid,
+       C.firstname First_Name,
+       C.lastname  Last_Name,
+       Count(il.quantity)
+FROM   invoiceline il
+JOIN invoice i
+ ON il.invoiceid = i.invoiceid
+JOIN customer c
+ ON i.customerid = c.customerid
+GROUP  BY 1
+ORDER  BY c.customerid 
