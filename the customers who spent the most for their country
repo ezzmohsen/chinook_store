@@ -1,0 +1,17 @@
+#Make a sub-query that calculate the sum of spent for each customer per client
+WITH spent AS (
+SELECT c.FirstName client_first,c.LastName client_last,sum(i.total) all_spent,c.Country country ,c.CustomerId id
+from Customer c
+join Invoice i
+on c.CustomerId=i.CustomerId
+group by 5
+)
+SELECT spent.*
+from spent
+#Make a sub-query that finds the customer who spent the most for each country 
+join ( select max(all_spent) total_spent,id
+		from spent
+		GROUP by Country) result
+on spent.id=result.id
+WHERE spent.all_spent=result.total_spent
+order by country
