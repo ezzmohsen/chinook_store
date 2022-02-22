@@ -1,0 +1,19 @@
+/* SQL query for most listened track */
+SELECT al.Title,
+       t.name,
+       a.Name,
+       g.Name,
+       max(i.total)
+FROM invoice i /* join tables until we reach to album and artist tables */
+JOIN InvoiceLine il ON il.InvoiceId=i.InvoiceId
+JOIN Track t ON il.TrackId=t.TrackId
+JOIN Genre g ON t.GenreId=g.GenreId
+JOIN Album al ON t.AlbumId=al.AlbumId
+JOIN Artist a ON a.ArtistId=al.ArtistId
+GROUP BY t.AlbumId /* There is TV Shows and Series identified as tracks so we have to extract songs by removing that extra genres*/
+HAVING t.GenreId != 18
+AND t.GenreId != 19
+AND t.GenreId != 20
+AND t.GenreId != 21
+AND t.GenreId != 22
+ORDER BY 5 DESC
