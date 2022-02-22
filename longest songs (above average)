@@ -1,0 +1,6 @@
+SELECT NAME,
+       milliseconds
+FROM   track
+WHERE  milliseconds > (SELECT Avg(milliseconds)
+                       FROM   track)
+ORDER  BY 2 DESC 
