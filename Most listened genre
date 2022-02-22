@@ -1,0 +1,10 @@
+/* Most listened genre*/
+SELECT g.Name,
+       count(i.total) AS number_sold,
+       round(total(i.total), 2) AS total_price
+FROM invoice i /* join tables until we reach to genre table */
+JOIN InvoiceLine il ON il.InvoiceId=i.InvoiceId
+JOIN Track t ON il.TrackId=t.TrackId
+JOIN Genre g ON t.GenreId=g.GenreId
+GROUP BY 1 /* There is TV Shows and Series if we want to remove it just insert the next line*/ /* HAVING t.GenreId != 18 and t.GenreId != 19  and t.GenreId != 20  and t.GenreId != 21  and t.GenreId != 22 */
+ORDER BY 2 DESC
