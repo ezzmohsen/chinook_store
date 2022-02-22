@@ -1,0 +1,21 @@
+WITH all_s AS
+  (SELECT Invoice.BillingCountry Country,
+          Genre.GenreId,
+          Genre.name,
+          count(invoice.InvoiceId) purchases
+   FROM Invoice
+   JOIN InvoiceLine ON Invoice.InvoiceId=InvoiceLine.InvoiceId
+   JOIN Track ON Track.TrackId=InvoiceLine.TrackId
+   JOIN Genre ON Track.GenreId=Genre.GenreId
+   GROUP BY 1,
+            2)
+SELECT all_s.*
+FROM all_s
+JOIN
+  (SELECT max(purchases)AS maxi,
+          Country,
+          GenreId,
+          name
+   FROM all_s
+   GROUP BY 2) bill_max ON bill_max.Country=all_s.Country
+WHERE bill_max.maxi=all_s.purchases
