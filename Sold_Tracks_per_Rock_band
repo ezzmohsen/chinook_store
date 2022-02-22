@@ -1,0 +1,10 @@
+SELECT ar.Name,
+       sum(i.Quantity) AS sold_tracks
+FROM Track t
+JOIN Album a ON t.AlbumId=a.AlbumId
+JOIN Artist ar ON a.ArtistId=ar.ArtistId
+JOIN InvoiceLine i ON i.TrackId=t.TrackId
+JOIN genre g ON t.GenreId=g.GenreId
+WHERE g.name='Rock'
+GROUP BY 1
+ORDER BY 2 DESC
